@@ -5,8 +5,11 @@ import { motion } from "framer-motion";
 import HroImage from '../../../public/assets/Frame3.png'
 import Image from "next/image";
 import { Contributors } from "./Contributors";
+import { useRouter } from "next/navigation";
 
 export function Hero() {
+
+  const router = useRouter();
   return (
     <div
       className="relative  mx-auto my-10 flex max-w-7xl flex-col items-center justify-center">
@@ -74,7 +77,8 @@ export function Hero() {
           className="relative z-10 mt-8 flex flex-wrap items-center justify-center gap-4">
            
           <button
-            className="w-60 transform rounded-lg bg-black px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
+          onClick={()=>router.push('/sign-up')}
+            className="w-60 transform rounded-lg bg-black px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200 cursor-pointer">
             Get Started
           </button>
           <button
