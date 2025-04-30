@@ -1,4 +1,5 @@
 "use client";
+
 import {
   Navbar,
   NavBody,
@@ -11,26 +12,16 @@ import {
   MobileNavMenu,
 } from "@/components/ui/resizable-navbar";
 import { useState } from "react";
-import { Hero } from "./Hero";
+import { useUser, UserButton } from "@clerk/clerk-react";
 
-export function Header () {
+export function Header() {
+  const { isSignedIn, isLoaded } = useUser();
+
   const navItems = [
-    {
-      name: "Home",
-      link: "#home",
-    },
-    {
-      name: "Tools",
-      link: "#tools",
-    },
-    {
-      name: "Community",
-      link: "#community",
-    },
-    {
-      name: "Contact",
-      link: "#contact",
-    },
+    { name: "Home", link: "#home" },
+    { name: "Tools", link: "#tools" },
+    { name: "Community", link: "#community" },
+    { name: "Contact", link: "#contact" },
   ];
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -43,8 +34,14 @@ export function Header () {
           <NavbarLogo />
           <NavItems items={navItems} />
           <div className="flex items-center gap-4">
-            <NavbarButton variant="secondary">Login</NavbarButton>
-            <NavbarButton variant="primary">Book a call</NavbarButton>
+            {!isLoaded ? null : isSignedIn ? (
+              <UserButton />
+            ) : (
+              <NavbarButton href="/sign-in" variant="secondary">
+                Login
+              </NavbarButton>
+            )}
+            <NavbarButton variant="primary">List Your Tool</NavbarButton>
           </div>
         </NavBody>
 
@@ -54,41 +51,49 @@ export function Header () {
             <NavbarLogo />
             <MobileNavToggle
               isOpen={isMobileMenuOpen}
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} />
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            />
           </MobileNavHeader>
 
-          <MobileNavMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)}>
+          <MobileNavMenu
+            isOpen={isMobileMenuOpen}
+            onClose={() => setIsMobileMenuOpen(false)}
+          >
             {navItems.map((item, idx) => (
               <a
                 key={`mobile-link-${idx}`}
                 href={item.link}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="relative text-neutral-600 dark:text-neutral-300">
+                className="relative text-neutral-600 dark:text-neutral-300"
+              >
                 <span className="block">{item.name}</span>
               </a>
             ))}
             <div className="flex w-full flex-col gap-4">
-              <NavbarButton
-                onClick={() => setIsMobileMenuOpen(false)}
-                variant="primary"
-                className="w-full">
-                Login
-              </NavbarButton>
-              <NavbarButton
-                onClick={() => setIsMobileMenuOpen(false)}
-                variant="primary"
-                className="w-full">
-                Book a call
-              </NavbarButton>
+              {!isLoaded ? null : isSignedIn ? (
+                <UserButton onClick={() => setIsMobileMenuOpen(false)} />
+              ) : (
+                <>
+                  <NavbarButton
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    variant="secondary"
+                    className="w-full"
+                  >
+                    Login
+                  </NavbarButton>
+                  <NavbarButton
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    variant="primary"
+                    className="w-full"
+                  >
+                    Book a call
+                  </NavbarButton>
+                </>
+              )}
             </div>
           </MobileNavMenu>
         </MobileNav>
       </Navbar>
-      
-      
-      {/* Navbar */}
     </div>
   );
 }
-
-
