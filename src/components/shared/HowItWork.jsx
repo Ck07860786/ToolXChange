@@ -46,8 +46,8 @@ export default function HowItWorks() {
       <h2 className="text-4xl font-semibold text-gray-900 mb-4 text-center">
         How It <span className="text-blue-600">Works</span>
       </h2>
-      <p className="mb-16 text-sm text-gray-500 text-center max-w-xl">
-        Follow these simple steps to connect with experts, get personalized guidance, and achieve your goals.
+      <p className="mb-16 text-lg text-gray-500 text-center max-w-xl">
+        Follow these simple steps to  share tools and get what you need.
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full max-w-7xl">
