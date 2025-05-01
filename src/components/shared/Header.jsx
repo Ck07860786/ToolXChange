@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/resizable-navbar";
 import { useState } from "react";
 import { useUser, UserButton } from "@clerk/clerk-react";
+import Link from "next/link";
 
 export function Header() {
   const { isSignedIn, isLoaded } = useUser();
@@ -35,13 +36,21 @@ export function Header() {
           <NavItems items={navItems} />
           <div className="flex items-center gap-4">
             {!isLoaded ? null : isSignedIn ? (
+              <>
               <UserButton />
+              <Link href={`/user-dashboard`}>
+              <NavbarButton variant="primary">Dashboard</NavbarButton>
+              </Link>
+              </>
             ) : (
+              <>
               <NavbarButton href="/sign-in" variant="secondary">
                 Login
               </NavbarButton>
+               <NavbarButton variant="primary">List Your Tool</NavbarButton>
+               </>
             )}
-            <NavbarButton variant="primary">List Your Tool</NavbarButton>
+           
           </div>
         </NavBody>
 
@@ -72,15 +81,18 @@ export function Header() {
             <div className="flex w-full flex-col gap-4">
               {!isLoaded ? null : isSignedIn ? (
                 <UserButton onClick={() => setIsMobileMenuOpen(false)} />
+                
               ) : (
                 <>
                   <NavbarButton
                     onClick={() => setIsMobileMenuOpen(false)}
                     variant="secondary"
                     className="w-full"
+                    href={`/sign-in`}
                   >
                     Login
                   </NavbarButton>
+                  
                   <NavbarButton
                     onClick={() => setIsMobileMenuOpen(false)}
                     variant="primary"

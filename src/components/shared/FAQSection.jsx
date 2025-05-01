@@ -61,11 +61,11 @@ export default function FAQSection() {
   return (
     <section id="faq" className="py-16 px-16 w-full">
       <div className="w-full px-0">
-        <h2 className="text-3xl font-bold text-center mb-8">Frequently Asked Questions</h2>
+        <h2 className="text-3xl font-bold text-center mb-8">Frequently Asked <span className=" text-blue-500">Questions</span></h2>
         <Accordion type="single" collapsible className="space-y-4 w-full">
           {faqs.map((item, index) => (
             <AccordionItem key={index} value={`item-${index}`} className="border border-gray-200 rounded-lg">
-              <AccordionTrigger className="px-4 py-3 text-lg font-medium text-gray-800">
+              <AccordionTrigger className="px-4 py-3 text-sm font-medium text-gray-800">
                 {item.question}
               </AccordionTrigger>
               <AccordionContent className="px-4 py-3 text-gray-600">

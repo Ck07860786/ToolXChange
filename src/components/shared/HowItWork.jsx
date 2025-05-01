@@ -61,9 +61,7 @@ export default function HowItWorks() {
             className="flex flex-col items-center text-center rounded-3xl p-6   hover:scale-105 transition-transform"
           >
             {/* Step number in styled circle */}
-            <div className="w-12 h-12 mb-4 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-md bg-gradient-to-r from-blue-700 via-25%  to-purple-400">
-              {step.number}
-            </div>
+          
 
             {/* Image */}
             <div className="w-40 h-40 rounded-full overflow-hidden shadow mb-4">
