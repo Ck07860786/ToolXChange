@@ -28,6 +28,20 @@ const toolSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  address:{
+    type:String,
+    
+  },
+  city:{
+    type:String,
+    
+  },
+  state:{
+    type:String,
+  },
+  pinCode:{
+    type:Number,
+  },
   status: {
     type: String,
     enum: ['Pending', 'Accepted', 'Rejected'],
