@@ -19,10 +19,10 @@ export function Header() {
   const { isSignedIn, isLoaded } = useUser();
 
   const navItems = [
-    { name: "Home", link: "#home" },
-    { name: "Tools", link: "#tools" },
-    { name: "Community", link: "#community" },
-    { name: "Contact", link: "#contact" },
+    { name: "Home", link: "/" },
+    { name: "Tools", link: "/tools" },
+    { name: "Community", link: "/community" },
+    { name: "Contact", link: "/contact" },
   ];
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
