@@ -22,6 +22,10 @@ export async function POST(request) {
     const name = formData.get('name');
     const status = formData.get('status');
     const description = formData.get('description');
+    const address = formData.get('address');
+    const city = formData.get('city');
+    const state = formData.get('state');
+    const pinCode = formData.get('pinCode');
     // status omitted: default "Pending" in model
     const availability = formData.get('availability') === 'true';
     const rentalRate = parseFloat(formData.get('rentalRate'));
@@ -42,6 +46,10 @@ export async function POST(request) {
       description,
       availability,
       rentalRate,
+      address,
+      city,
+      state,
+      pinCode,
      
       images: uploadedImages
       // status defaults to "Pending"
