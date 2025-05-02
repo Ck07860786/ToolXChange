@@ -55,6 +55,10 @@ export default function UserDashboard() {
     availability: true,
     rentalRate: "",
     status:"",
+    address: "",
+    city: "",
+    state: "",
+    pinCode: "",
   });
   const [files, setFiles] = useState([]);
   const [deleteId, setDeleteId] = useState(null);
@@ -93,6 +97,10 @@ export default function UserDashboard() {
         formData.append('availability', String(form.availability));
         formData.append('status', String(form.status));
         formData.append('rentalRate', form.rentalRate);
+        formData.append('address', form.address);
+        formData.append('city', form.city);
+        formData.append('state', form.state);
+        formData.append('pinCode', form.pincode);
         Array.from(files).forEach(file => formData.append('images', file));
         const res = await fetch('/api/tools/new-tool/create', { method: 'POST', body: formData });
         if (res.ok) {
@@ -127,10 +135,13 @@ export default function UserDashboard() {
   const openForm = (tool) => {
     if (tool) {
       setEditing(tool);
-      setForm({ name: tool.name, description: tool.description, availability: tool.availability, rentalRate: tool.rentalRate });
+      setForm({ name: tool.name, description: tool.description, availability: tool.availability, rentalRate: tool.rentalRate, address: tool.address || '',
+        city: tool.city || '',
+        state: tool.state || '',
+        pinCode: tool.pinCode || '', });
     } else {
       setEditing(null);
-      setForm({ name: '', description: '', availability: true, rentalRate: '' });
+      setForm({ name: '', description: '', availability: true, rentalRate: '',  address: '', city: '', state: '', pinCode: '' });
     }
     setOpen(true);
   };
@@ -216,58 +227,7 @@ const handleDeleteClick = (id) => {
                     Add New Tool
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="bg-white p-6 rounded-lg">
-                  <DialogHeader>
-                    <DialogTitle>Post a New Tool</DialogTitle>
-                    <DialogDescription>Fill out the form to share your tool with the community.</DialogDescription>
-                  </DialogHeader>
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                      <Label htmlFor="name">Name</Label>
-                      <Input id="name" name="name" value={form.name} onChange={handleChange} required />
-                    </div>
-                    <div>
-                      <Label htmlFor="description">Description</Label>
-                      <Textarea id="description" name="description" value={form.description} onChange={handleChange} required />
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Checkbox
-                        id="availability"
-                        name="availability"
-                        checked={form.availability}
-                        onCheckedChange={(checked) =>
-                          setForm((prev) => ({ ...prev, availability: checked }))
-                        }
-                      />
-                      <Label htmlFor="availability">Available to Rent</Label>
-                    </div>
-                    <div>
-                      <Label htmlFor="rentalRate">Rental Rate (per day)</Label>
-                      <Input
-                        id="rentalRate"
-                        name="rentalRate"
-                        type="number"
-                        value={form.rentalRate}
-                        onChange={handleChange}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="images">Images</Label>
-                      <Input
-                        id="images"
-                        name="images"
-                        type="file"
-                        accept="image/*"
-                        onChange={handleFiles}
-                        multiple
-                      />
-                    </div>
-                    <DialogFooter>
-                      <Button type="submit">Submit</Button>
-                    </DialogFooter>
-                  </form>
-                </DialogContent>
+   
               </Dialog>
             </CardContent>
           </Card>
@@ -320,6 +280,12 @@ const handleDeleteClick = (id) => {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div><Label htmlFor="name">Name</Label><Input id="name" name="name" value={form.name} onChange={handleChange} required/></div>
             <div><Label htmlFor="description">Description</Label><Textarea id="description" name="description" value={form.description} onChange={handleChange} required/></div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                      <div><Label htmlFor="address">Address</Label><Input id="address" name="address" value={form.address} onChange={handleChange} required /></div>
+                      <div><Label htmlFor="city">City</Label><Input id="city" name="city" value={form.city} onChange={handleChange} required /></div>
+                      <div><Label htmlFor="state">State</Label><Input id="state" name="state" value={form.state} onChange={handleChange} required /></div>
+                      <div><Label htmlFor="pinCode">Pincode</Label><Input id="pinCode" name="pinCode" value={form.pinCode} onChange={handleChange} required /></div>
+                    </div>
             <div className="flex items-center space-x-2"><Checkbox id="availability" name="availability" checked={form.availability} onCheckedChange={checked => setForm(prev => ({...prev, availability: checked}))}/><Label htmlFor="availability">Available to Rent</Label></div>
             <div><Label htmlFor="rentalRate">Rental Rate (per day)</Label><Input id="rentalRate" name="rentalRate" type="number" value={form.rentalRate} onChange={handleChange} required/></div>
             <div><Label htmlFor="images">Images</Label><Input id="images" name="images" type="file" accept="image/*" onChange={handleFiles} multiple/></div>
