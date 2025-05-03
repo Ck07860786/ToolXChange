@@ -12,12 +12,15 @@ import Footer from '@/components/shared/Footer'
 import TestimonialSection from '@/components/shared/TestimonialSection'
 import { LocationFilter } from '@/components/shared/LocationFilter'
 import { ToolGuidelines } from '@/components/shared/ToolGuidlines'
+import RentModal from '@/components/shared/RentModel'
 
 export default function Tools() {
   const [tools, setTools] = useState([])
   const [loading, setLoading] = useState(true)
   const [query, setQuery] = useState('')
   const [popupImage, setPopupImage] = useState(null)
+  const [showModal, setShowModal] = useState(false)
+  const [selectedTool, setSelectedTool] = useState(null)
 
   // initial fetch
   useEffect(() => {
@@ -39,6 +42,16 @@ export default function Tools() {
         )
       : tools
   }, [tools, query])
+
+  const handleRentClick = tool => {
+    setSelectedTool(tool)
+    setShowModal(true)
+  }
+
+  const handleCloseModal = () => {
+    setShowModal(false)
+    setSelectedTool(null)
+  }
 
   return (
     <>
@@ -204,6 +217,7 @@ export default function Tools() {
                         size="sm"
                         disabled={!tool.availability}
                         className="px-4 py-1"
+                        onClick={() => handleRentClick(tool)}
                       >
                         Rent Now
                       </Button>
@@ -254,6 +268,14 @@ export default function Tools() {
             />
           </div>
         </div>
+      )}
+
+      {/* Rent Modal */}
+      {showModal && (
+        <RentModal
+          tool={selectedTool}
+          onClose={handleCloseModal}
+        />
       )}
 
       <Footer />
