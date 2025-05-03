@@ -44,9 +44,12 @@ const toolSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['Pending', 'Accepted', 'Rejected'],
+    enum: ['Pending', 'Approved', 'Rejected'],
     default: 'Pending',
   },
 }, { timestamps: true });
 
 export default mongoose.models.Tool || mongoose.model('Tool', toolSchema);
+
+
+
